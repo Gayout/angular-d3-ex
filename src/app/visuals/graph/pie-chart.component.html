@@ -1,0 +1,13 @@
+<svg #svg [attr.width]="options.width" [attr.height]="options.height" viewBox="0 0 500 500">
+  <defs blurFilter="black">
+  </defs>
+  <g transform="translate(250, 250)">
+    <g [zoomableOf]="svg">
+      <g [arcVisual]="datum" *ngFor="let datum of data; let index = index;">
+      </g>
+    </g>
+  </g>
+</svg>
+
+<span #tooltip class="myre-charts__tooltip_d3" style="display: none;">
+</span>
