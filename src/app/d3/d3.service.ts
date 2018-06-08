@@ -1,26 +1,57 @@
 import { Injectable } from '@angular/core';
+
 import * as d3 from 'd3';
+
+import { IProperty, MyrePieChartDatum } from './interfaces';
 
 @Injectable()
 export class D3Service {
-  public applyZoomableBehaviour(svgElement, containerElement): void {
-    const svg = d3.select(svgElement);
-    const container = d3.select(containerElement);
+  constructor() { }
 
-    const zoomed = () => {
-      const transform = d3.event.transform;
-      container.attr('transform', 'translate(' + transform.x + ',' + transform.y + ') scale(' + transform.k + ')');
-    };
+  /**
+   *
+   * Prends des properties en entrée et retour des objets avec des radius
+   *
+   * @param data : IProperty []
+   * @param update : boolean
+   * @returns MyrePieChartDatum[]
+   */
+  public pie(data: IProperty[], update: boolean = false): MyrePieChartDatum[] {
+    const pie = d3.pie<IProperty>()
+    .sort((a: IProperty, b: IProperty) => b.income - a.income)
+    .value((d: IProperty) =>  d.income);
 
-    const zoom = d3.zoom().on('zoom', zoomed);
-    svg.call(zoom);
+    const pieData: d3.PieArcDatum<IProperty>[] = pie(data);
+
+    return pieData
+    .map((d: d3.PieArcDatum<IProperty>) => ({ ...d, update }));
   }
 
-  public getPieData(data: { value: number }[]): d3.PieArcDatum<{ value: number }>[] {
-    const pie = d3.pie<{ value: number }>()
-    .sort((a, b) => b.value - a.value)
-    .value(d => d.value);
+  /**
+   * Calcule le path pour le MyrePieChart en entrée
+   *
+   * @param pieDatum: MyrePieChartDatum
+   * @returns path: string
+   */
+  public arc(pieDatum: MyrePieChartDatum): string {
+    const arc: d3.Arc<any, MyrePieChartDatum> = d3.arc<MyrePieChartDatum>()
+    .innerRadius(150)
+    .outerRadius(200);
 
-    return pie(data);
+    return arc(pieDatum);
+  }
+
+  /**
+   * Calcule le path pour le MyrePieChart en entrée
+   *
+   * @param pieDatum: MyrePieChartDatum
+   * @returns path: string
+   */
+  public arcOver(pieDatum: MyrePieChartDatum): string {
+    const arc: d3.Arc<any, MyrePieChartDatum> = d3.arc<MyrePieChartDatum>()
+    .innerRadius(160)
+    .outerRadius(210);
+
+    return arc(pieDatum);
   }
 }

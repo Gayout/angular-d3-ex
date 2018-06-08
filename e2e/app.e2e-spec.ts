@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('angular-d3-example App', () => {
+describe('d3-tuto App', () => {
   let page: AppPage;
 
   beforeEach(() => {

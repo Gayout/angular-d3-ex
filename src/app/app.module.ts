@@ -1,28 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+
 import { AppComponent } from './app.component';
-import { D3Service } from './d3';
-import { ZoomableDirective } from './d3/directives/zoomable.directive';
-import { PieChartComponent } from './visuals/graph/pie-chart.component';
-import { ArcVisualComponent } from './visuals/shared/arc-visual.component';
-import { BlurFilterComponent } from './visuals/filters/blur.component';
+import { D3Module } from './d3/d3.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ArcVisualComponent,
-    PieChartComponent,
-    ZoomableDirective,
-    BlurFilterComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
+    D3Module,
   ],
-  providers: [
-    D3Service,
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

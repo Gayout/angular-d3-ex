@@ -1,0 +1,7 @@
+<svg [attr.width]="options.width" [attr.height]="options.height" viewBox="0 0 500 500">
+  <g [attr.transform]="transform">
+    <g arc *ngFor="let pieDatum of pieData;" [pieDatum]="pieDatum">
+      <!-- ArcComponent -->
+    </g>
+  </g>
+</svg>
